@@ -66,41 +66,43 @@ export default function Home() {
     setLoading(false);
   };
 
-  const downloadPDF = () => {
+const downloadPDF = () => {
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
-    printWindow.document.write(`
+    printWindow.document.write(`<!DOCTYPE html>
       <html>
         <head>
           <title>CV - ${form.name}</title>
           <meta charset="utf-8"/>
           <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
             * { margin: 0; padding: 0; box-sizing: border-box; }
-            body { font-family: 'Segoe UI', Arial, sans-serif; background: white; }
+            body { font-family: 'Inter', 'Segoe UI', Arial, sans-serif; background: white; }
             .page { display: flex; min-height: 100vh; }
-            .sidebar { width: 240px; min-width: 240px; background: #0f172a; color: white; padding: 36px 24px; }
-            .main { flex: 1; padding: 40px 36px; background: white; }
-            .avatar { width: 88px; height: 88px; background: linear-gradient(135deg, #3b82f6, #6366f1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 800; color: white; margin: 0 auto 18px; border: 3px solid rgba(255,255,255,0.2); }
-            .sidebar-name { font-size: 17px; font-weight: 700; text-align: center; color: white; margin-bottom: 4px; }
-            .sidebar-job { font-size: 12px; color: #93c5fd; text-align: center; margin-bottom: 28px; font-weight: 500; }
-            .sidebar-divider { height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 22px; }
-            .sidebar-section { margin-bottom: 22px; }
-            .sidebar-label { font-size: 9px; text-transform: uppercase; letter-spacing: 2.5px; color: #60a5fa; margin-bottom: 10px; font-weight: 700; }
-            .sidebar-item { font-size: 11.5px; color: #cbd5e1; margin-bottom: 7px; line-height: 1.5; display: flex; align-items: flex-start; gap: 6px; }
-            .sidebar-dot { color: #3b82f6; font-size: 14px; line-height: 1.3; flex-shrink: 0; }
-            .main-header { margin-bottom: 28px; padding-bottom: 22px; border-bottom: 2px solid #f1f5f9; }
-            .main-name { font-size: 34px; font-weight: 800; color: #0f172a; letter-spacing: -0.5px; }
-            .main-job { font-size: 16px; color: #3b82f6; font-weight: 600; margin-top: 4px; }
-            .main-contact { display: flex; gap: 20px; margin-top: 12px; flex-wrap: wrap; }
-            .main-contact-item { font-size: 12px; color: #64748b; display: flex; align-items: center; gap: 5px; }
-            .section { margin-bottom: 26px; }
+            .sidebar { width: 260px; min-width: 260px; background: #0f172a; color: white; padding: 40px 24px; }
+            .main { flex: 1; padding: 44px 40px; background: white; }
+            .avatar { width: 90px; height: 90px; background: linear-gradient(135deg, #3b82f6, #6366f1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 800; color: white; margin: 0 auto 18px; border: 3px solid rgba(255,255,255,0.15); }
+            .sidebar-name { font-size: 18px; font-weight: 800; text-align: center; color: white; margin-bottom: 4px; line-height: 1.3; }
+            .sidebar-job { font-size: 12px; color: #93c5fd; text-align: center; margin-bottom: 30px; font-weight: 500; }
+            .sidebar-divider { height: 1px; background: rgba(255,255,255,0.08); margin-bottom: 24px; }
+            .sidebar-section { margin-bottom: 24px; }
+            .sidebar-label { font-size: 9px; text-transform: uppercase; letter-spacing: 3px; color: #60a5fa; margin-bottom: 12px; font-weight: 700; }
+            .sidebar-item { font-size: 12px; color: #cbd5e1; margin-bottom: 8px; line-height: 1.5; display: flex; align-items: flex-start; gap: 8px; }
+            .sidebar-dot { color: #3b82f6; flex-shrink: 0; margin-top: 1px; }
+            .main-name { font-size: 36px; font-weight: 800; color: #0f172a; letter-spacing: -1px; line-height: 1.1; }
+            .main-job { font-size: 16px; color: #3b82f6; font-weight: 600; margin-top: 6px; }
+            .accent-line { width: 50px; height: 4px; background: linear-gradient(to right, #3b82f6, #6366f1); border-radius: 2px; margin: 14px 0 20px; }
+            .main-contact { display: flex; gap: 20px; margin-bottom: 32px; flex-wrap: wrap; }
+            .main-contact-item { font-size: 12px; color: #64748b; display: flex; align-items: center; gap: 6px; background: #f8fafc; padding: 5px 12px; border-radius: 20px; border: 1px solid #e2e8f0; }
+            .section { margin-bottom: 28px; }
             .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-            .section-bar { width: 4px; height: 20px; background: linear-gradient(to bottom, #3b82f6, #6366f1); border-radius: 2px; }
-            .section-title { font-size: 13px; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 1.5px; }
-            .section-text { font-size: 13px; line-height: 1.85; color: #374151; white-space: pre-line; padding-left: 14px; border-left: 2px solid #f1f5f9; }
-            .skills-grid { display: flex; flex-wrap: wrap; gap: 7px; padding-left: 14px; }
-            .skill-tag { background: #eff6ff; color: #1d4ed8; font-size: 11px; padding: 4px 12px; border-radius: 20px; border: 1px solid #bfdbfe; font-weight: 500; }
-            .footer { margin-top: 30px; padding-top: 16px; border-top: 1px solid #f1f5f9; font-size: 10px; color: #94a3b8; text-align: right; }
+            .section-bar { width: 4px; height: 22px; background: linear-gradient(to bottom, #3b82f6, #6366f1); border-radius: 2px; flex-shrink: 0; }
+            .section-title { font-size: 11px; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; }
+            .section-text { font-size: 13px; line-height: 1.9; color: #475569; white-space: pre-line; padding: 14px 16px; background: #f8fafc; border-radius: 10px; border-left: 3px solid #e2e8f0; }
+            .skills-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+            .skill-pill { background: #eff6ff; color: #1d4ed8; font-size: 11px; padding: 5px 14px; border-radius: 20px; border: 1px solid #bfdbfe; font-weight: 600; }
+            .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #f1f5f9; font-size: 10px; color: #94a3b8; text-align: right; letter-spacing: 0.5px; }
+            @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
           </style>
         </head>
         <body>
@@ -126,19 +128,21 @@ export default function Home() {
                 <div class="sidebar-label">Formation</div>
                 <div class="sidebar-item"><span class="sidebar-dot">▸</span>${cv.education}</div>
               </div>` : ''}
+              <div style="margin-top: auto; padding-top: 40px;">
+                <div style="font-size: 9px; color: #334155; text-align: center; opacity: 0.6;">Généré par CVRapide.fr</div>
+              </div>
             </div>
             <div class="main">
-              <div class="main-header">
-                <div class="main-name">${form.name}</div>
-                <div class="main-job">${form.job}</div>
-                <div class="main-contact">
-                  ${form.email ? `<span class="main-contact-item">✉ ${form.email}</span>` : ''}
-                  ${form.phone ? `<span class="main-contact-item">☎ ${form.phone}</span>` : ''}
-                </div>
+              <div class="main-name">${form.name}</div>
+              <div class="main-job">${form.job}</div>
+              <div class="accent-line"></div>
+              <div class="main-contact">
+                ${form.email ? `<span class="main-contact-item">✉ ${form.email}</span>` : ''}
+                ${form.phone ? `<span class="main-contact-item">☎ ${form.phone}</span>` : ''}
               </div>
               ${cv.profile ? `
               <div class="section">
-                <div class="section-header"><div class="section-bar"></div><div class="section-title">Profil</div></div>
+                <div class="section-header"><div class="section-bar"></div><div class="section-title">Profil Professionnel</div></div>
                 <div class="section-text">${cv.profile}</div>
               </div>` : ''}
               ${cv.experience ? `
@@ -146,14 +150,21 @@ export default function Home() {
                 <div class="section-header"><div class="section-bar"></div><div class="section-title">Expériences</div></div>
                 <div class="section-text">${cv.experience}</div>
               </div>` : ''}
-              <div class="footer">Généré par CVRapide.fr — IA Professionnelle</div>
+              ${cv.skills ? `
+              <div class="section">
+                <div class="section-header"><div class="section-bar"></div><div class="section-title">Compétences</div></div>
+                <div class="skills-wrap">
+                  ${cv.skills.split(',').map((s: string) => `<span class="skill-pill">${s.trim()}</span>`).join('')}
+                </div>
+              </div>` : ''}
+              <div class="footer">CVRapide.fr — Intelligence Artificielle Professionnelle</div>
             </div>
           </div>
         </body>
       </html>
     `);
     printWindow.document.close();
-    printWindow.print();
+    setTimeout(() => printWindow.print(), 800);
   };
 
   const inputClass = "w-full mt-1.5 px-4 py-3 text-sm border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition shadow-sm";
