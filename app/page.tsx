@@ -46,7 +46,7 @@ export default function Home() {
   const generate = async () => {
     if (!form.name || !form.job) return alert(lang === 'fr' ? 'Remplis ton nom et le poste visé !' : 'Fill in your name and target position!');
     if (cvCount >= 1) {
-      window.open('https://cvrapide.lemonsqueezy.com/checkout/buy/0f457762-70dc-4460-bf95-4c7dc6ff8661', '_blank');
+      window.open('https://hazardous535.gumroad.com/l/hdeiod', '_blank');
       return;
     }
     setLoading(true);
